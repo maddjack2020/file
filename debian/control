@@ -1,0 +1,18 @@
+Source: file
+Section: unknown
+Priority: optional
+Maintainer: Jackson Hansen <madjack971@bsdmail.com>
+Build-Depends: debhelper-compat (= 13), dh-autoreconf
+Standards-Version: 4.5.1
+Homepage: https://www.darwinsys.com/file/
+Rules-Requires-Root: no
+Vcs-Git: https://github.com/maddjack2020/file.git
+Vcs-Browser: https://github.com/maddjack2020/file
+
+Package: file
+Architecture: any
+Multi-Arch: foreign
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: auto-generated package by debmake
+ The File package contains a utility for determining the type of a given file
+ or files.

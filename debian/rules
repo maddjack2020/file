@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+SHELL = /bin/bash
+
+PATH := /opt/cross/bin:$(PATH)
+SYSROOT = /opt/cross/x86_64-xgcc-linux-gnu/sys-root
+
+%:
+	dh $@ --with autoreconf
+
+build/src/file:
+	mkdir -p build
+	cd build && ../configure --disable-{{b,x,}zlib,libseccomp}
+	+$(MAKE) -C build
+
+CONFARGS = --host=x86_64-xgcc-linux-gnu --with-sysroot=$(SYSROOT)
+override_dh_auto_configure: build/src/file
+	dh_auto_configure -- $(CONFARGS)
+
+override_dh_auto_build:
+	dh_auto_build -- FILE_COMPILE='$(CURDIR)/build/src/file'
+
+execute_after_dh_auto_install:
+	rm debian/file/usr/lib/*/*.la
